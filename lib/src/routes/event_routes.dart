@@ -4,8 +4,7 @@ import 'package:models/models.dart';
 import 'package:zaplab_design/zaplab_design.dart';
 import '../providers/resolvers.dart';
 import '../providers/search.dart';
-import '../screens/thread_screen.dart';
-import '../screens/article_screen.dart';
+
 import '../screens/mail_screen.dart';
 import '../modals/reply_modal.dart';
 import '../modals/actions_modal.dart';
@@ -114,36 +113,6 @@ List<GoRoute> get eventRoutes => [
               builder: (context, ref, _) {
                 return MailScreen(
                   mail: model as Mail,
-                );
-              },
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/thread/:eventId',
-        pageBuilder: (context, state) {
-          final event = state.extra as Model;
-          return AppSlideInScreen(
-            child: Consumer(
-              builder: (context, ref, _) {
-                return ThreadScreen(
-                  thread: event as Note,
-                );
-              },
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/article/:eventId',
-        pageBuilder: (context, state) {
-          final event = state.extra as Model;
-          return AppSlideInScreen(
-            child: Consumer(
-              builder: (context, ref, _) {
-                return ArticleScreen(
-                  article: event as Article,
                 );
               },
             ),

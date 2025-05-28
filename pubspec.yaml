@@ -1,5 +1,5 @@
-name: zapchat
-description: "Zapchat"
+name: satshoot
+description: "Satshoot - Unstoppable Freelancing"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -36,8 +36,8 @@ dependencies:
 
   models:
     git:
-      url: https://github.com/purplebase/models.git
-      ref: "6d096b1"
+      url: https://github.com/purplebase/models
+      ref: 833faa
   amber_signer:
     path: ../amber_signer
   flutter:

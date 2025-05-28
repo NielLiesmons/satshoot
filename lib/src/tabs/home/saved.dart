@@ -3,12 +3,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:models/models.dart';
 import 'package:zaplab_design/zaplab_design.dart';
 
-class JobsTab extends StatelessWidget {
-  const JobsTab({super.key});
+class SavedTab extends StatelessWidget {
+  const SavedTab({super.key});
 
   TabData tabData(BuildContext context) {
     return TabData(
-      label: 'Jobs',
+      label: 'Saved',
       icon: const AppEmojiContentType(contentType: 'job'),
       content: HookConsumer(
         builder: (context, ref, _) {
