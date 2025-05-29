@@ -8,8 +8,8 @@ class SavedTab extends StatelessWidget {
 
   TabData tabData(BuildContext context) {
     return TabData(
-      label: 'Saved',
-      icon: const AppEmojiContentType(contentType: 'job'),
+      label: 'Library',
+      icon: const AppEmojiContentType(contentType: 'library'),
       content: HookConsumer(
         builder: (context, ref, _) {
           final jobs = ref.watch(query<Job>()).models.cast<Job>();
@@ -18,6 +18,11 @@ class SavedTab extends StatelessWidget {
             padding: const AppEdgeInsets.all(AppGapSize.s12),
             child: Column(
               children: [
+                AppBigSectionTitle(
+                  title: 'Saved By You',
+                  filter: "Jobs & Services",
+                ),
+                const AppGap.s12(),
                 for (final job in jobs)
                   Column(
                     children: [

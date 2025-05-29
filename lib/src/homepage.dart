@@ -4,7 +4,7 @@ import 'package:models/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'tabs/home/discover.dart';
 import 'tabs/home/communities.dart';
-import 'tabs/home/saved.dart';
+import 'tabs/home/library.dart';
 import 'tabs/home/forum.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -18,7 +18,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   late final AppTabController _tabController;
   double _topContainerHeight = 1.0;
 
-  static const double _heightWithProfile = 288.0;
+  static final _heightWithProfile = AppPlatformUtils.isMobile ? 180.0 : 118.0;
   static const double _heightWithoutProfile = 288.0;
 
   // Tab controller to switch bottom bar based on the tab that is selected.
@@ -63,9 +63,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                       height: containerHeight,
                       child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AppContainer(
-                              padding: const AppEdgeInsets.all(AppGapSize.s12),
+                              padding: activeProfile == null ||
+                                      AppPlatformUtils.isMobile
+                                  ? const AppEdgeInsets.all(AppGapSize.s12)
+                                  : const AppEdgeInsets.all(AppGapSize.none),
                               child: activeProfile == null
                                   ? Row(
                                       children: [
@@ -85,56 +89,63 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               color: theme.colors.whiteEnforced,
                                             ),
                                             const AppGap.s12(),
-                                            AppText.med14('Start'),
+                                            AppText.med14('Start',
+                                                color:
+                                                    theme.colors.whiteEnforced),
                                           ],
                                         ),
                                       ],
                                     )
-                                  : Row(
-                                      children: [
-                                        // if (AppPlatformUtils.isMobile)
-                                        AppProfilePic.s38(
-                                          activeProfile,
-                                          onTap: () =>
-                                              context.push('/settings'),
-                                        ),
-                                        const AppGap.s12(),
-                                        Expanded(
-                                          child: AppInputButton(
-                                            children: [
-                                              AppIcon.s18(
-                                                  theme.icons.characters.search,
-                                                  outlineThickness:
-                                                      AppLineThicknessData
-                                                              .normal()
-                                                          .medium,
-                                                  outlineColor:
-                                                      theme.colors.white33),
-                                              const AppGap.s8(),
-                                              AppText.med14(
-                                                  'Search Jobs, Services, ...',
-                                                  color: theme.colors.white33),
-                                            ],
-                                          ),
-                                        ),
-                                        const AppGap.s12(),
-                                        AppButton(
-                                          onTap: () => context.push('/create'),
-                                          square: true,
-                                          inactiveColor: theme.colors.white16,
+                                  : AppPlatformUtils.isMobile
+                                      ? Row(
                                           children: [
-                                            AppIcon.s12(
-                                                theme.icons.characters.plus,
-                                                outlineThickness:
-                                                    AppLineThicknessData
-                                                            .normal()
-                                                        .thick,
-                                                outlineColor:
-                                                    theme.colors.white66),
+                                            // if (AppPlatformUtils.isMobile)
+                                            AppProfilePic.s38(
+                                              activeProfile,
+                                              onTap: () =>
+                                                  context.push('/settings'),
+                                            ),
+                                            const AppGap.s12(),
+                                            Expanded(
+                                              child: AppInputButton(
+                                                children: [
+                                                  AppIcon.s18(
+                                                      theme.icons.characters
+                                                          .search,
+                                                      outlineThickness:
+                                                          AppLineThicknessData
+                                                                  .normal()
+                                                              .medium,
+                                                      outlineColor:
+                                                          theme.colors.white33),
+                                                  const AppGap.s8(),
+                                                  AppText.med14('Search',
+                                                      color:
+                                                          theme.colors.white33),
+                                                ],
+                                              ),
+                                            ),
+                                            const AppGap.s12(),
+                                            AppButton(
+                                              onTap: () =>
+                                                  context.push('/create'),
+                                              square: true,
+                                              inactiveColor:
+                                                  theme.colors.white16,
+                                              children: [
+                                                AppIcon.s12(
+                                                    theme.icons.characters.plus,
+                                                    outlineThickness:
+                                                        AppLineThicknessData
+                                                                .normal()
+                                                            .thick,
+                                                    outlineColor:
+                                                        theme.colors.white66),
+                                              ],
+                                            ),
                                           ],
-                                        ),
-                                      ],
-                                    ),
+                                        )
+                                      : SizedBox.shrink(),
                             ),
                             const AppDivider(),
                             AppContainer(
@@ -182,8 +193,28 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         ),
                                       ],
                                     )
-                                  : AppPanel(
-                                      child: AppText('Placeholder'),
+                                  : SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      clipBehavior: Clip.none,
+                                      child: Row(
+                                        children: [
+                                          AppPanel(
+                                            width: 200,
+                                            height: 92,
+                                            child: AppText.reg14(
+                                                '// Complete your profile',
+                                                color: theme.colors.white33),
+                                          ),
+                                          const AppGap.s12(),
+                                          AppPanel(
+                                            width: 200,
+                                            height: 92,
+                                            child: AppText.reg14(
+                                                '// More onboarding or notifications for you',
+                                                color: theme.colors.white33),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                             ),
                           ],
@@ -197,19 +228,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                     tabs: [
                       const DiscoverTab().tabData(context),
                       const ForumTab().tabData(context),
-                      const CommunitiesTab().tabData(context),
                       const SavedTab().tabData(context),
+                      const CommunitiesTab().tabData(context),
                     ],
                     controller: _tabController,
                     scrollableContent: true,
                     onScroll: (position) {
                       setState(() {
                         _topContainerHeight =
-                            (1.0 - ((position * 2) / containerHeight))
+                            (1.0 - ((position) / containerHeight))
                                 .clamp(0.0, 1.0);
                       });
                     },
-                    scrollOffsetHeight: containerHeight / 2,
+                    scrollOffsetHeight: containerHeight,
                   ),
                 ),
               ],

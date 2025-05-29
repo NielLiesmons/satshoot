@@ -474,6 +474,26 @@ final satshootInitializationProvider = FutureProvider<bool>((ref) async {
         'Forum Post Title',
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       )).dummySign(zapchat.pubkey),
+      (PartialForumPost(
+        'Forum Post Title',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      )).dummySign(zapcloud.pubkey),
+      (PartialForumPost(
+        'Forum Post Title',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      )).dummySign(niel.pubkey),
+      (PartialForumPost(
+        'Forum Post Title',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      )).dummySign(franzap.pubkey),
+      (PartialForumPost(
+        'Forum Post Title',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      )).dummySign(jane.pubkey),
+      (PartialForumPost(
+        'Forum Post Title',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      )).dummySign(verbiricha.pubkey),
     ]);
 
     // Save all data

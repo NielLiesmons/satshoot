@@ -12,19 +12,22 @@ class CommunitiesTab extends StatelessWidget {
       icon: const AppEmojiContentType(contentType: 'community'),
       content: HookConsumer(
         builder: (context, ref, _) {
-          final services = ref.watch(query<Service>()).models.cast<Service>();
+          final communities =
+              ref.watch(query<Community>()).models.cast<Community>();
 
           return AppContainer(
+            padding: const AppEdgeInsets.all(AppGapSize.s12),
             child: Column(
               children: [
-                for (final service in services)
+                for (final community in communities)
                   Column(
                     children: [
-                      AppFeedService(
-                        service: service,
-                        onTap: (event) =>
-                            context.push('/service/${event.id}', extra: event),
+                      AppCommunityCard(
+                        community: community,
+                        onTap: () {},
+                        onProfilesTap: () {},
                       ),
+                      const AppGap.s12(),
                     ],
                   ),
               ],

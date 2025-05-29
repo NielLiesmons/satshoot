@@ -14,11 +14,62 @@ class ForumTab extends StatelessWidget {
       bottomBar: const AppBottomBarSafeArea(),
       content: HookConsumer(
         builder: (context, ref, _) {
+          final theme = AppTheme.of(context);
+
           final forumPosts =
               ref.watch(query<ForumPost>()).models.cast<ForumPost>();
 
           return Column(
             children: [
+              AppContainer(
+                padding: const AppEdgeInsets.all(AppGapSize.s12),
+                child: AppPanel(
+                  padding: const AppEdgeInsets.only(
+                    left: AppGapSize.s16,
+                    right: AppGapSize.s12,
+                    top: AppGapSize.s12,
+                    bottom: AppGapSize.s12,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                AppProfilePic.fromUrl("ghjk",
+                                    size: AppProfilePicSize.s48),
+                                const AppGap.s12(),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppText.reg14("Welcome to the Forum of the",
+                                        color: theme.colors.white66),
+                                    AppText.med16(
+                                      "Satshoot Community",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const AppGap.s12(),
+                            AppText.reg14(
+                                "Click on the Forum button again to filter posts or search for a topic",
+                                color: theme.colors.white66),
+                          ],
+                        ),
+                      ),
+                      AppCrossButton.s24(
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               for (final forumPost in forumPosts)
                 AppFeedForumPost(
                   forumPost: forumPost,
